@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import pickle
+import os
 
 
 def loan_application_form():
@@ -52,15 +54,40 @@ def loan_application_form():
         # model = load_model()
 
         # create a dataframe from the form data
-        X = pd.DataFrame(params, index=[0])
-        # make a prediction
-        #y_pred = model.predict(X)
+        # X = pd.DataFrame(params, index=[0])
+        # # make a prediction
+        # #y_pred = model.predict(X)
+
+        # ### Make prediction if the customer will get a loan or not
+        # model_path = '/home/aline/code/final_project/sambla-web/model/'
+        # model_file = os.path.join(model_path, 'model_binary.pkl')
+        # model_binary = pickle.load(open(model_file, "rb"))
+        get_loan = 1#  model_binary.predict(X)
+
+
+
+
+        if get_loan == 1:
+
+            # #regression_file = os.path.join(model_path, 'model_model_regression.pkl')
+            # # model_regression = pickle.load(open(regression_file, "rb"))
+            # # loan_amount = model_regression.predict(X)
+
+
+
+            loan_amount = 1000 #model_regress.predict(X)
+
+            st.balloons()
+            st.success(f'Congretulations! You are able to get a loan of {loan_amount}',
+                       icon="✅")
+        else:
+            st.error('Sorry, you are not qualify for a loan...', icon="🚨")
 
         #st.write(f"Your loan application is {y_pred[0]}")
 
         # Process the form data and perform further actions (e.g., model prediction)
         # You can access the entered values using the variables above
         # For example, `total_loan`, `new_loan`, `monthly_income`, etc.
-        pass
+
 
 loan_application_form()
